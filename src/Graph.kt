@@ -1,4 +1,4 @@
-class Graph<E>() {
+class Graph<E> {
     var vertices: ArrayList<Vertex<E>> = ArrayList()
     var edges: ArrayList<Edge<E>> = ArrayList()
 
@@ -57,6 +57,10 @@ class Graph<E>() {
             }
         }
         return null
+    }
+
+    fun hasVertexWithValue(value: E): Boolean {
+        return getVertexFromVale(value) != null
     }
 
     fun addEdge(source: Vertex<E>, destination: Vertex<E>) {

@@ -1,6 +1,4 @@
 import java.io.File
-import java.lang.NullPointerException
-import kotlin.collections.ArrayList
 
 class GraphMaker {
     companion object {
@@ -48,6 +46,7 @@ class GraphMaker {
             }
 
             // Go Back and connect
+            var lineOn = 1
             for (line in input.lines()) {
                 var value: Int = getIntValueFromLine(line)
                 var connections = getIntConnectionsFromLine(line)
@@ -59,9 +58,10 @@ class GraphMaker {
                     if (sourceVertex != null && connectionVertex != null) {
                         out.addEdge(sourceVertex, connectionVertex)
                     } else {
-                        throw NullPointerException("No node with value: $connection")
+                        throw NullPointerException("Line $lineOn: No existing node with value: $connection")
                     }
                 }
+                lineOn++
             }
 
           return out
@@ -69,7 +69,11 @@ class GraphMaker {
 
         fun makeIntGraphFromFile(path: String): Graph<Int> {
             var file = File(path)
-            return makeIntGraphFromString(file.readText())
+            try {
+                return makeIntGraphFromString(file.readText())
+            } catch (error: NullPointerException) {
+                throw NullPointerException("File: " + file.name + ", " + error.message)
+            }
         }
 
         fun <E> makeStringFromGraph(input: Graph<E>): String {
