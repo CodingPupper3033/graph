@@ -1,6 +1,6 @@
-class Vertex<E>(var value: E? = null, var connections : ArrayList<Edge<E>> = ArrayList()) {
+class Vertex<E>(var value: E? = null, var connections : ArrayList<Edge<E>> = ArrayList(), var visited: Boolean = false) {
     override fun toString() : String {
-        return value.toString();
+        return value.toString()
     }
 
     fun connectionsToString() : String {
@@ -18,5 +18,9 @@ class Vertex<E>(var value: E? = null, var connections : ArrayList<Edge<E>> = Arr
 
     fun addEdge(edge: Edge<E>) {
         connections.add(edge)
+    }
+
+    fun addEdge(vertex: Vertex<E>) {
+        connections.add(Edge(this, vertex))
     }
 }
